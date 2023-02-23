@@ -4,9 +4,8 @@ jobs:
   lint:
     runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@v1
-    - name: Setup Python environment
-      uses: actions/setup-python@v1.1.1
+    - name: checkout the Code
+      uses: actions/checkout@v3
     - name: Install requirements
       run: pip3 install --quiet --requirement requirements.txt
     - name: Lint code
