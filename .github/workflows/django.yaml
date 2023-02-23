@@ -1,10 +1,18 @@
 name: django 
 on: push 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  lint:
+    runs-on: ubuntu-18.04
     steps:
-      - name: Get Code
-        uses: actions/checkout@v3
-      - name: Python Syntax Checker
-        uses: cclauss/Find-Python-syntax-errors-action@v0.2.0
+    - uses: actions/checkout@v1
+    - name: Setup Python environment
+      uses: actions/setup-python@v1.1.1
+    - name: Install requirements
+      run: pip install --quiet --requirement requirements.txt
+    - name: Lint code
+      run: |
+        flake8 --ignore=E501,E231 *.py
+        pylint --disable=C0301 --disable=C0326 *.py
+    - name: Run unit tests
+      run: |
+        python -m unittest --verbose --failfast
