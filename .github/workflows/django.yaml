@@ -6,3 +6,5 @@ jobs:
     steps:
       - name: Get Code
         uses: actions/checkout@v3
+      - name: Python Syntax Checker
+        uses: cclauss/Find-Python-syntax-errors-action@v0.2.0
