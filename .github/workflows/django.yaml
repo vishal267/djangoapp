@@ -1,4 +1,4 @@
-name: djangoapp-pipeline
+name: django 
 on: push 
 jobs:
   lint:
@@ -21,7 +21,7 @@ jobs:
         isort .
         isort --check --diff .
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       -
         name: Checkout
@@ -39,9 +39,16 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
+        name: Declare some variables
+        id: vars
+        shell: bash 
+        run: |
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+      -    
         name: Build and push
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: user/app:"${{ steps.vars.outputs.branch }}.${{ steps.vars.outputs.sha_short }}"
+          tags: vishal267djangoapp:"${{ steps.vars.outputs.branch }}.${{ steps.vars.outputs.sha_short }}"
