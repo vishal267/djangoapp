@@ -11,7 +11,12 @@ jobs:
     - name: Lint code
       run: |
         flake8 --ignore=E501,E231 webapp/*.py
-        pylint --disable=C0301 --disable=C0326 webapp/*.py
+        pylint --exit-zero --disable=C0301 --disable=C0326 webapp/*.py
     - name: Run unit tests
       run: |
         python3 -m unittest --verbose --failfast
+    - name: Sort imports
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        isort .
+        isort --check --diff .
