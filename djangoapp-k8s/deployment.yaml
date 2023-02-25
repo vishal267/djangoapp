@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: django-app
+  name: django-app
+  namespace: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django-app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: django-app
+    spec:
+      containers:
+      - image: vishal267/djangoapp:master-594ef0a
+        name: django-app
+        resources: {}
