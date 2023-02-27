@@ -22,7 +22,7 @@ jobs:
         isort --check --diff .
   build:
     needs: lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       -
         name: Checkout
@@ -59,11 +59,16 @@ jobs:
           push: true
           tags: vishal267/djangoapp:${{ steps.vars.outputs.branch }}-${{ steps.vars.outputs.sha_short }}
   push-image-tag:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     needs: 
     - lint
     - build
     steps:
       -
-        name: push image to master repo
-        uses: imranismail/setup-kustomize@v2
+        name: Set up Kustomize 
+        run: |- 
+          curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
+          chmod u+x ./kustomize
+      -   
+        name: Checkout
+        uses: actions/checkout@v3
