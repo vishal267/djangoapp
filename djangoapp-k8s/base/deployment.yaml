@@ -21,5 +21,4 @@ spec:
       containers:
       - image: vishal267/djangoapp:master-594ef0a
         name: django-app
-        command: [""]
         resources: {}
