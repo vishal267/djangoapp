@@ -4,3 +4,4 @@ pylint==2.13.9
 pytest==7.0.1
 pytest-django==4.5.2
 jmespath==0.10.0
+future==0.18.2
