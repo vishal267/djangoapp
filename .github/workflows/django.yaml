@@ -81,3 +81,9 @@ jobs:
           git add .
           git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
           git push
+      - 
+        name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.CI_TOKEN }}
+          branch: ${{ github.ref }}
