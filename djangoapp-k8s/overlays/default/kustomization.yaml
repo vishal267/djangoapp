@@ -3,3 +3,7 @@ kind: Kustomization
 
 resources:
 - ../../base
+images:
+- name: vishal267/djangoapp
+  newName: vishal267/djangoapp
+  newTag: master-c13a400
