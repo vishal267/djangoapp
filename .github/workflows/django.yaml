@@ -20,9 +20,12 @@ jobs:
         # stop the build if there are Python syntax errors or undefined names
         isort .
         isort --check --diff .
-  build:
+  build_deploy:
     needs: lint
     runs-on: ubuntu-18.04
+    env: 
+      CI_COMMIT_MESSAGE: Continuous Integration Build Artifacts
+      CI_COMMIT_AUTHOR: Continuous Integration
     steps:
       -
         name: Checkout
@@ -73,12 +76,8 @@ jobs:
           cd djangoapp-k8s/overlays/default/
           kustomize edit set image vishal267/djangoapp=vishal267/djangoapp:${{ steps.vars.outputs.branch }}-${{ steps.vars.outputs.sha_short }}
           kustomize build .
-          git config --global user.email "vishal267@ymail.com"
-          git config --global user.name "vishal arora"
+          git config --global user.email "CI@users.noreply.github.com"
+          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
           git add .
-          git commit -m "updating the image tag"
-      - name: Push changes to master branch
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+          git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
+          git push
