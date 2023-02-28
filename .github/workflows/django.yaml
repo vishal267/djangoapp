@@ -81,7 +81,7 @@ jobs:
           git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
           git add .
       - 
-        name: Commit and Push changes
+        name: Commit and Push change
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.CI_TOKEN }}
