@@ -78,3 +78,8 @@ jobs:
           git add .
           git commit -m "updating the image tag"
           git push
+      - name: Push changes to master branch
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
