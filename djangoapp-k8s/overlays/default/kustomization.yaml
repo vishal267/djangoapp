@@ -6,4 +6,4 @@ resources:
 images:
 - name: vishal267/djangoapp
   newName: vishal267/djangoapp
-  newTag: master-1a499ec
+  newTag: master-2c02658
